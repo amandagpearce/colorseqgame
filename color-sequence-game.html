@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <style type="text/css">
+      #output {
+        border:2px solid #e8e1e1;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        width: 350px;
+        height: 250px;
+        margin-bottom: 10px;
+      }
+      #colorOutput {
+        width: 350px;
+        height: 50px;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        display: flex;
+      }
+      input[type=button]{
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        display: block;
+        margin-bottom: 10px;
+        width: 150px;
+        background: #06f144;
+        border: none;
+        text-transform: uppercase;
+        padding: 10px;
+        color: #135003;
+        transition: all 0.2s ease;
+      }
+      input[type=button]:hover {
+        cursor:pointer;
+        color: #06f144;
+        background: #057522;
+      }
+      #message,#message2 {
+        text-align: center;
+        font-size: 18px;
+        margin-top: 10px;
+        text-transform: uppercase;
+        display: block;
+        max-width:500px;
+        margin:0 auto;
+        left: 0;
+        right: 0;
+        margin-top:10px;
+      }
+      
+    </style>
+</head>
+
+<body>
+    <input type="button" onclick="startGame()" value="Start"/>
+    <div id="output"></div>
+    <div id="colorOutput"></div>
+    <div id="message"></div>
+    <div id="message2"></div>
+
+     
+    <script>
+      window.onload=setCBoxes;
+      var colorArray = ["blueviolet","lime","darkturquoise","midnightblue","deeppink","darkred"];
+      var randomColors, loop, myTimer;
+      var output = document.getElementById('output');
+      var colorBoxes = document.getElementsByClassName('colorBox'); 
+      var userInput=[];
+      
+
+      function setCBoxes(){
+        var colorOutput = document.getElementById('colorOutput');
+        var html="";
+        var boxWidth = Math.ceil(100/colorArray.length);
+   
+        for(var x=0; x<colorArray.length;x++){
+          html += "<div class='colorBox' style='width:"+boxWidth+"%; background-color:"+colorArray[x]+"'></div>";
+          //console.log(html);
+          colorOutput.innerHTML = html;
+        }
+        
+      }
+
+      function startGame(){
+        randomColors = [];
+        message2.innerHTML= "";
+        message.innerHTML = "";
+        userInput = [];
+        loop = 0;
+        
+        for(var x=0; x<4; x++){
+          var color = Math.floor(Math.random()*colorArray.length);
+          randomColors.push(colorArray[color]);
+        }
+        
+        myTimer = setTimeout(showWhite, 1000);
+        
+      }
+
+      function showWhite(){
+        output.style.backgroundColor = "white";
+        myTimer = setTimeout(showColors,500);
+      }
+
+      function showColors(){
+          output.style.backgroundColor = randomColors[loop];
+          loop++;
+          if(loop >= randomColors.length){
+            clearTimeout(myTimer);
+            checkAnswer();
+          }
+          myTimer = setTimeout(showWhite,1000);
+      }
+
+      function checkAnswer(){
+        var guess, g;
+        var html="";
+        var d = document.createElement('div');
+        var message = document.getElementById('message');
+        var message2 = document.getElementById('message2');
+          
+          for(var i=0; i<colorBoxes.length; i++){
+           colorBoxes[i].onclick = function(){
+
+            guess = this.style.backgroundColor;
+            
+            d.style.backgroundColor = this.style.backgroundColor;
+            d.innerText = this.style.backgroundColor;
+            message.appendChild(d);
+            userInput.push(guess);
+            }
+          }
+
+          if(userInput.length == randomColors.length) {
+            if(userInput.toString()==randomColors.toString()) {
+              message2.innerHTML = "<b>You're right!</b>";
+            }
+            else {
+              var html2="";
+              for(x=0;x<randomColors.length; x++){
+                html2 += "<div style='color:#fff;background-color:"+randomColors[x]+";'>"+randomColors[x]+"</div>";
+              }
+             message2.innerHTML = "<b>You're wrong</b> <br>Answer was: "+html2; 
+            
+            }
+          }
+          
+        }
+      
+
+
+
+
+       
+      
+
+
+
+      
+          
+    </script>
+</body>
+
+</html>
