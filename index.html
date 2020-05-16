@@ -71,6 +71,7 @@
       var output = document.getElementById('output');
       var colorBoxes = document.getElementsByClassName('colorBox'); 
       var userInput=[];
+      var gameplay = false;
       
 
       function setCBoxes(){
@@ -92,19 +93,20 @@
         message.innerHTML = "";
         userInput = [];
         loop = 0;
-        
+        gameplay = true;
+        clearTimeout(myTimer);
         for(var x=0; x<4; x++){
           var color = Math.floor(Math.random()*colorArray.length);
           randomColors.push(colorArray[color]);
         }
         
-        myTimer = setTimeout(showWhite, 1000);
+        myTimer = setTimeout(showWhite, 500);
         
       }
 
       function showWhite(){
         output.style.backgroundColor = "white";
-        myTimer = setTimeout(showColors,500);
+        myTimer = setTimeout(showColors,200);
       }
 
       function showColors(){
@@ -114,7 +116,7 @@
             clearTimeout(myTimer);
             checkAnswer();
           }
-          myTimer = setTimeout(showWhite,1000);
+          myTimer = setTimeout(showWhite,1500);
       }
 
       function checkAnswer(){
@@ -123,20 +125,9 @@
         var d = document.createElement('div');
         var message = document.getElementById('message');
         var message2 = document.getElementById('message2');
-          
-          for(var i=0; i<colorBoxes.length; i++){
-           colorBoxes[i].onclick = function(){
 
-            guess = this.style.backgroundColor;
-            
-            d.style.backgroundColor = this.style.backgroundColor;
-            d.innerText = this.style.backgroundColor;
-            message.appendChild(d);
-            userInput.push(guess);
-            }
-          }
-
-          if(userInput.length == randomColors.length) {
+        if(userInput.length == randomColors.length) {
+            gameplay = false;
             if(userInput.toString()==randomColors.toString()) {
               message2.innerHTML = "<b>You're right!</b>";
             }
@@ -150,18 +141,25 @@
             }
           }
           
+          for(var i=0; i<colorBoxes.length; i++){
+           colorBoxes[i].onclick = function(){
+            if(gameplay){
+              guess = this.style.backgroundColor;
+            
+              d.style.backgroundColor = this.style.backgroundColor;
+              d.style.color = "white";
+              d.innerText = this.style.backgroundColor;
+              message.appendChild(d);
+              userInput.push(guess);
+              }
+            
+            }
+          }
+
+          
+          
         }
-      
-
-
-
-
-       
-      
-
-
-
-      
+            
           
     </script>
 </body>
