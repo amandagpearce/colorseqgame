@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Simple color sequence game</title>
+    <title></title>
     <style type="text/css">
       #output {
         border:2px solid #e8e1e1;
@@ -153,6 +153,7 @@
         userInput = [];
         loop = 0;
         gameplay = true;
+        myTimer;
 
         button.setAttribute('value','Restart');
         button.setAttribute('onclick','restart()');
@@ -205,8 +206,8 @@
         
             if(userInput.toString()==randomColors.toString()) {
               output.innerHTML = "<b>You go gurl</b>";
-              button.setAttribute('value','Next Fase');
-              button.setAttribute('onclick','nextFase()');
+              button.setAttribute('value','Next Level');
+              button.setAttribute('onclick','nextLevel()');
               button.classList.add('next');
             }
             else {
@@ -223,7 +224,7 @@
           }
       }
 
-      function nextFase() {
+      function nextLevel() {
         button.classList.remove('next');
         if (initialColors == colorArray.length){
           gameplay = false;
@@ -242,7 +243,12 @@
       }
 
     function restart() {
-      location.reload();
+  
+      initialColors = 3;
+      initialColorBoxes = 3;
+
+      setCBoxes();
+      startGame();
     }       
       
 
