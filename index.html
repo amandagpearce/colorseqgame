@@ -2,16 +2,35 @@
 <html>
 
 <head>
-    <title>Simple Color Sequence Game</title>
+    <title>Simple color sequence game</title>
     <style type="text/css">
       #output {
         border:2px solid #e8e1e1;
         margin: 0 auto;
         left: 0;
         right: 0;
-        width: 350px;
-        height: 250px;
+        width: 340px;
+        height: 240px;
         margin-bottom: 10px;
+        padding: 10px;
+
+        text-align: center;
+        font-size: 18px;
+        margin-top: 10px;
+        text-transform: uppercase;
+      }
+      #output b{
+        color: red;
+        text-align: center;
+        font-style: italic;
+        font-weight: bold;
+        font-family: tahoma;
+        font-size: 25px;
+
+        text-align: center;
+          vertical-align: middle;
+          display: block;
+          line-height: 254px;
       }
       #output span {
           color: red;
@@ -25,7 +44,7 @@
           font-style: italic;
           font-weight: bold;
           font-family: tahoma;
-          font-size: 30px;
+          font-size: 20px;
       }
       #colorOutput {
         width: 350px;
@@ -130,6 +149,7 @@
         randomColors = [];
         message2.innerHTML= "";
         message.innerHTML = "";
+        output.innerText = "";
         userInput = [];
         loop = 0;
         gameplay = true;
@@ -184,7 +204,7 @@
             gameplay = false;
         
             if(userInput.toString()==randomColors.toString()) {
-              message2.innerHTML = "<b>You're right!</b>";
+              output.innerHTML = "<b>You go gurl</b>";
               button.setAttribute('value','Next Fase');
               button.setAttribute('onclick','nextFase()');
               button.classList.add('next');
@@ -197,8 +217,8 @@
               for(x=0;x<randomColors.length; x++){
                 html2 += "<div style='color:#fff;background-color:"+randomColors[x]+";'>"+randomColors[x]+"</div>";
               }
-             message2.innerHTML = "<b>You're wrong</b> <br>Answer was: "+html2; 
-            
+             output.innerHTML = "<b>Nops u suck</b>"; 
+             message2.innerHTML = "<br><b>Answer was:</b> "+html2
             }
           }
       }
